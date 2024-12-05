@@ -1,0 +1,16 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: tekton-dashboard
+  namespace: tekton-pipelines
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`{{tekton_dashboard_domain}}`)
+      priority: 10
+      services:
+        - name: tekton-dashboard
+          port: 9097
+  tls: {}
